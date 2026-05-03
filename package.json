@@ -3,7 +3,8 @@
   "displayName": "pyCharisma",
   "description": "PyCharm-like debugging experience for Python in VSCode",
   "version": "0.3.0",
-  "publisher": "luiz-alberto-abarca-ferrarezi",
+  "publisher": "lferrarezi",
+  "author": "Luiz Alberto Abarca Ferrarezi",
   "license": "MIT",
   "repository": {
     "type": "git",
