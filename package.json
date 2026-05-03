@@ -1,0 +1,160 @@
+{
+  "name": "pycharisma",
+  "displayName": "pyCharisma",
+  "description": "PyCharm-like debugging experience for Python in VSCode",
+  "version": "0.1.0",
+  "publisher": "lferrarezi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lferrarezi/pyCharisma"
+  },
+  "icon": "assets/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Debuggers", "Other"],
+  "keywords": ["python", "debug", "pycharm", "breakpoint", "debugpy"],
+  "activationEvents": [
+    "onLanguage:python",
+    "onDebug"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pycharisma.quickDebug",
+        "title": "pyCharisma: Debug Current File",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "pycharisma.runToCursor",
+        "title": "pyCharisma: Run to Cursor"
+      },
+      {
+        "command": "pycharisma.evaluateExpression",
+        "title": "pyCharisma: Evaluate Expression"
+      },
+      {
+        "command": "pycharisma.toggleInlineValues",
+        "title": "pyCharisma: Toggle Inline Variable Values"
+      },
+      {
+        "command": "pycharisma.addToWatch",
+        "title": "pyCharisma: Add Selection to Watch"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "pycharisma.quickDebug",
+        "key": "shift+f9",
+        "when": "editorLangId == python"
+      },
+      {
+        "command": "workbench.action.debug.stepOver",
+        "key": "f8",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "workbench.action.debug.stepInto",
+        "key": "f7",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "workbench.action.debug.stepOut",
+        "key": "shift+f8",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "workbench.action.debug.continue",
+        "key": "f9",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "pycharisma.runToCursor",
+        "key": "alt+f9",
+        "when": "inDebugMode && editorLangId == python"
+      },
+      {
+        "command": "editor.debug.action.toggleBreakpoint",
+        "key": "ctrl+f8",
+        "when": "editorLangId == python"
+      },
+      {
+        "command": "pycharisma.evaluateExpression",
+        "key": "alt+f8",
+        "when": "inDebugMode"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "pycharisma.runToCursor",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "debug@1"
+        },
+        {
+          "command": "pycharisma.addToWatch",
+          "when": "inDebugMode && editorHasSelection",
+          "group": "debug@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "pycharisma.quickDebug",
+          "when": "editorLangId == python",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "pyCharisma",
+      "properties": {
+        "pycharisma.inlineValues.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show variable values inline during debug sessions"
+        },
+        "pycharisma.inlineValues.maxLength": {
+          "type": "number",
+          "default": 40,
+          "description": "Maximum character length for inline variable display"
+        },
+        "pycharisma.keybindings.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable PyCharm-compatible keybindings (F7, F8, F9, etc.)"
+        },
+        "pycharisma.quickDebug.pythonPath": {
+          "type": "string",
+          "default": "",
+          "description": "Python interpreter path for Quick Debug. Leave empty to use workspace default."
+        },
+        "pycharisma.quickDebug.stopOnEntry": {
+          "type": "boolean",
+          "default": false,
+          "description": "Pause on the first line when using Quick Debug"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "dev": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "lint": "eslint src --ext ts",
+    "test": "node ./dist/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.0"
+  }
+}

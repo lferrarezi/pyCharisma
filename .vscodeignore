@@ -1,0 +1,8 @@
+.vscode/**
+src/**
+node_modules/**
+.gitignore
+tsconfig.json
+*.map
+BRIEFING.md
+CONSTITUTION.md
