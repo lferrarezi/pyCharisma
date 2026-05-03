@@ -38,6 +38,10 @@ export class PyCharismaInlineValuesProvider implements vscode.InlineValuesProvid
     this._onDidChangeInlineValues.fire();
   }
 
+  get isEnabled(): boolean {
+    return this._enabled;
+  }
+
   toggle(): void {
     this._enabled = !this._enabled;
     this._onDidChangeInlineValues.fire();

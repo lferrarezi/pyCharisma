@@ -4,12 +4,14 @@ import { PyCharismaInlineValuesProvider } from './providers/inlineValues';
 import { RunToCursor } from './debugger/runToCursor';
 import { EvaluateExpression } from './debugger/evaluateExpression';
 import { StatusBarManager } from './ui/statusBar';
+import { DebugBarProvider } from './ui/debugBar';
 
 export function activate(context: vscode.ExtensionContext) {
   const quickDebugger = new QuickDebugger();
   const statusBar = new StatusBarManager();
   const runToCursor = new RunToCursor();
   const evaluator = new EvaluateExpression();
+  const debugBar = new DebugBarProvider();
 
   // Inline values provider — ativa durante sessões de debug Python
   const inlineValuesProvider = new PyCharismaInlineValuesProvider();
@@ -18,6 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
       { language: 'python' },
       inlineValuesProvider
     )
+  );
+
+  // Debug bar no painel inferior
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(DebugBarProvider.viewId, debugBar)
   );
 
   // Comandos
@@ -34,9 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
       evaluator.execute()
     ),
 
-    vscode.commands.registerCommand('pycharisma.toggleInlineValues', () =>
-      inlineValuesProvider.toggle()
-    ),
+    vscode.commands.registerCommand('pycharisma.toggleInlineValues', () => {
+      inlineValuesProvider.toggle();
+      debugBar.notifyInlineValuesToggled(inlineValuesProvider.isEnabled);
+    }),
 
     vscode.commands.registerCommand('pycharisma.addToWatch', () => {
       const editor = vscode.window.activeTextEditor;
@@ -48,12 +56,13 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
-  // Atualiza status bar conforme sessão de debug
+  // Sincroniza status bar e debug bar com o ciclo da sessão de debug
   context.subscriptions.push(
     vscode.debug.onDidStartDebugSession(session => {
       if (session.type === 'debugpy') {
         statusBar.showDebugging();
         inlineValuesProvider.onSessionStart();
+        debugBar.onSessionStart();
       }
     }),
 
@@ -61,6 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (session.type === 'debugpy') {
         statusBar.showIdle();
         inlineValuesProvider.onSessionEnd();
+        debugBar.onSessionEnd();
       }
     })
   );

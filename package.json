@@ -21,6 +21,24 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "pycharisma-panel",
+          "title": "pyCharisma",
+          "icon": "assets/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "pycharisma-panel": [
+        {
+          "type": "webview",
+          "id": "pycharisma.debugBar",
+          "name": "Debug Bar"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "pycharisma.quickDebug",
