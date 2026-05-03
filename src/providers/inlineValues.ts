@@ -19,6 +19,13 @@ export class PyCharismaInlineValuesProvider implements vscode.InlineValuesProvid
   constructor() {
     const config = vscode.workspace.getConfiguration('pycharisma.inlineValues');
     this._enabled = config.get<boolean>('enabled', true);
+
+    vscode.workspace.onDidChangeConfiguration(e => {
+      if (e.affectsConfiguration('pycharisma.inlineValues.enabled')) {
+        this._enabled = vscode.workspace.getConfiguration('pycharisma.inlineValues').get<boolean>('enabled', true);
+        this._onDidChangeInlineValues.fire();
+      }
+    });
   }
 
   onSessionStart(): void {
@@ -61,7 +68,7 @@ export class PyCharismaInlineValuesProvider implements vscode.InlineValuesProvid
           line, match.index,
           line, match.index + name.length
         );
-        values.push(new vscode.InlineValueVariableLookup(range, name, false));
+        values.push(new vscode.InlineValueVariableLookup(range, name, true));
       }
     }
 

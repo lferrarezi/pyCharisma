@@ -120,11 +120,6 @@
           "default": 40,
           "description": "Maximum character length for inline variable display"
         },
-        "pycharisma.keybindings.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable PyCharm-compatible keybindings (F7, F8, F9, etc.)"
-        },
         "pycharisma.quickDebug.pythonPath": {
           "type": "string",
           "default": "",
