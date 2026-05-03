@@ -3,7 +3,7 @@
   "displayName": "pyCharisma",
   "description": "PyCharm-like debugging experience for Python in VSCode",
   "version": "0.3.0",
-  "publisher": "lferrarezi",
+  "publisher": "luiz-alberto-abarca-ferrarezi",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "vscode": "^1.85.0"
   },
   "categories": ["Debuggers", "Other"],
-  "keywords": ["python", "debug", "pycharm", "breakpoint", "debugpy"],
+  "keywords": ["python", "debug", "pycharm", "breakpoint", "debugpy", "ferrarezi", "luiz-alberto-abarca-ferrarezi"],
   "activationEvents": [
     "onLanguage:python",
     "onDebug"
