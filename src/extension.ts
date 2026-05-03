@@ -53,7 +53,27 @@ export function activate(context: vscode.ExtensionContext) {
       if (selection) {
         vscode.commands.executeCommand('editor.debug.action.selectionToWatch');
       }
-    })
+    }),
+
+    vscode.commands.registerCommand('pycharisma.debugContinue', () =>
+      vscode.commands.executeCommand('workbench.action.debug.continue')
+    ),
+
+    vscode.commands.registerCommand('pycharisma.debugStepOver', () =>
+      vscode.commands.executeCommand('workbench.action.debug.stepOver')
+    ),
+
+    vscode.commands.registerCommand('pycharisma.debugStepInto', () =>
+      vscode.commands.executeCommand('workbench.action.debug.stepInto')
+    ),
+
+    vscode.commands.registerCommand('pycharisma.debugStepOut', () =>
+      vscode.commands.executeCommand('workbench.action.debug.stepOut')
+    ),
+
+    vscode.commands.registerCommand('pycharisma.debugStop', () =>
+      vscode.commands.executeCommand('workbench.action.debug.stop')
+    )
   );
 
   // Sincroniza status bar e debug bar com o ciclo da sessão de debug

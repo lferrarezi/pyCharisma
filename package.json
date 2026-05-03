@@ -2,7 +2,7 @@
   "name": "pycharisma",
   "displayName": "pyCharisma",
   "description": "PyCharm-like debugging experience for Python in VSCode",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "lferrarezi",
   "license": "MIT",
   "repository": {
@@ -47,19 +47,47 @@
       },
       {
         "command": "pycharisma.runToCursor",
-        "title": "pyCharisma: Run to Cursor"
+        "title": "pyCharisma: Run to Cursor",
+        "icon": "$(arrow-right)"
       },
       {
         "command": "pycharisma.evaluateExpression",
-        "title": "pyCharisma: Evaluate Expression"
+        "title": "pyCharisma: Evaluate Expression",
+        "icon": "$(beaker)"
       },
       {
         "command": "pycharisma.toggleInlineValues",
-        "title": "pyCharisma: Toggle Inline Variable Values"
+        "title": "pyCharisma: Toggle Inline Variable Values",
+        "icon": "$(eye)"
       },
       {
         "command": "pycharisma.addToWatch",
         "title": "pyCharisma: Add Selection to Watch"
+      },
+      {
+        "command": "pycharisma.debugContinue",
+        "title": "pyCharisma: Continue",
+        "icon": "$(debug-continue)"
+      },
+      {
+        "command": "pycharisma.debugStepOver",
+        "title": "pyCharisma: Step Over",
+        "icon": "$(debug-step-over)"
+      },
+      {
+        "command": "pycharisma.debugStepInto",
+        "title": "pyCharisma: Step Into",
+        "icon": "$(debug-step-into)"
+      },
+      {
+        "command": "pycharisma.debugStepOut",
+        "title": "pyCharisma: Step Out",
+        "icon": "$(debug-step-out)"
+      },
+      {
+        "command": "pycharisma.debugStop",
+        "title": "pyCharisma: Stop",
+        "icon": "$(debug-stop)"
       }
     ],
     "keybindings": [
@@ -120,8 +148,43 @@
       "editor/title": [
         {
           "command": "pycharisma.quickDebug",
-          "when": "editorLangId == python",
-          "group": "navigation"
+          "when": "editorLangId == python && !inDebugMode",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pycharisma.debugContinue",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pycharisma.debugStepOver",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pycharisma.debugStepInto",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@3"
+        },
+        {
+          "command": "pycharisma.debugStepOut",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@4"
+        },
+        {
+          "command": "pycharisma.runToCursor",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@5"
+        },
+        {
+          "command": "pycharisma.evaluateExpression",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@6"
+        },
+        {
+          "command": "pycharisma.debugStop",
+          "when": "inDebugMode && editorLangId == python",
+          "group": "navigation@7"
         }
       ]
     },
